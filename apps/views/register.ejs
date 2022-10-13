@@ -51,9 +51,18 @@
                                     <i class="fa fa-key"></i>Sign Up
                                     <span>Sign Up now and meet the awesome friends around the world.</span>
                                 </div>
-                                <form class="we-form" method="post">
-                                    <input type="text" placeholder="Email">
-                                    <input type="password" placeholder="Password">
+                                <form id = "registerform" class="we-form" method="post" action = "/register">
+                                    <% if (!data.error) {%>
+                                    <div id="registeralert" style="display: none;" class="alert alert-danger"></div>
+                                    <%}%>
+
+                                    <% if (data.error) {%>
+                                        <div id="registeralertt" class="alert alert-danger">
+                                        <%= data.message%>
+                                        </div>
+                                    <%}%>
+                                    <input type="text" placeholder="Email" name = "email">
+                                    <input type="password" placeholder="Password" name = "password">
                                     <input type="text" placeholder="+8434-567-987">
                                     <input type="checkbox"><label>Send code to Mobile</label>
                                     <button type="submit" data-ripple="">Register</button>

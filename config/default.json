@@ -6,8 +6,9 @@
     "mysql":{
         "host":"localhost",
         "port":"3306",
-        "database":"web-chat",
+        "database":"webchat",
         "user":"T-H",
         "password":"12345678TH"
-    }
+    },
+    "salt":10
 }
