@@ -15,9 +15,13 @@ router.get("/register",function(req,res){
 
  router.post("/register",function(req,res){
         var user = req.body;
-        if(user.email.trim().length == 0 || user.password.trim().length == 0){
-             err = {
-                message: "Cannot to blank",
+
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+        // Kiểm tra email không đúng cấu trúc or mật khẩu trống
+        if(!filter.test(user.email) || user.password.trim().length == 0){
+            var err = {
+                message: "Wrong email or password",
                 error: true
             }
             res.render("register",{data:err});
@@ -25,27 +29,47 @@ router.get("/register",function(req,res){
 
         var passs = hashpass.hashPass(user.password);
 
-        var adduser = {
-            email: user.email,
-            pass: passs,
-            create_time: new Date(),
-            update_time: new Date()
-        }
+        var semail = user_model.searchEmail(user.email);
 
-        var result = user_model.addUser(adduser);
-
-        result.then(function(data){
+        semail.then(function(data){
+            if(data){
             var err = {
-                message: "Successful account registration",
+                message: "Email already exists",
                 error: true
             }
-            res.render("register",{data:err});
+           res.render("register",{data:err});
+            }
+            else{
+                var adduser = {
+                    email: user.email,
+                    pass: passs,
+                    create_time: new Date(),
+                    update_time: new Date()
+                }
+        
+                var result = user_model.addUser(adduser);
+    
+             // Thông báo kết quả khi thêm vào CSDL success hay ko
+            result.then(function(data){
+                var err = {
+                    message: "Successful account registration",
+                    error: true
+                }
+                res.render("register",{data:err});
+            }).catch(function(err){
+                var erro = {
+                    message: "Error",
+                    error: true
+                }
+                res.render("register",{data:erro});
+            });
+            }
         }).catch(function(err){
-            var err = {
+            var erro = {
                 message: "Error",
                 error: true
             }
-            res.render("register",{data:err});
+            res.render("register",{data:erro});
         });
     });
 
