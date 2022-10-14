@@ -32,12 +32,13 @@ router.get("/register",function(req,res){
         var semail = user_model.searchEmail(user.email);
 
         semail.then(function(data){
-            if(data){
+            var save = data[0];
+            if(save){
             var err = {
                 message: "Email already exists",
                 error: true
             }
-           res.render("register",{data:err});
+             res.render("register",{data:err});
             }
             else{
                 var adduser = {
@@ -63,12 +64,13 @@ router.get("/register",function(req,res){
                 }
                 res.render("register",{data:erro});
             });
-            }
+    }
         }).catch(function(err){
             var erro = {
                 message: "Error",
                 error: true
             }
+            console.log(err);
             res.render("register",{data:erro});
         });
     });
