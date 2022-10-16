@@ -62,9 +62,16 @@
                                         </div>
                                     <%}%>
 
+                                    <% if (data.code_error) {%>
+                                        <div id="registeralertt" class="alert alert-danger">
+                                        <%= data.code_message%>
+                                        </div>
+                                    <%}%>
+                                    <input type="hidden" id = "code_save" name = "code_save">
                                     <input type="text" placeholder="Email" name = "email">
                                     <input type="password" placeholder="Password" name = "password">
-                                    <input type="text" placeholder="+8434-567-987">
+                                    <input type="text" placeholder="+8434-567-987" name = "mobile" id = "mobile">
+                                    <input type="text" placeholder="Verification Code" name = "code">
                                     <input type="checkbox"><label>Send code to Mobile</label>
                                     <button type="submit" data-ripple="">Register</button>
                                     <a class="forgot underline" href="#" title="">forgot password?</a>
@@ -83,7 +90,8 @@
         </section>
          
     </div>
-    
+        <script type = "text/javascript" src="../apps/helpers/sms.js"></script>
+        <script type = "text/javascript" src="../apps/helpers/test.js"></script>
     	<script src="/static/js/main.min.js"></script>
 		<script src="/static/js/script.js"></script>
 </body>	

@@ -10,5 +10,9 @@
         "user":"T-H",
         "password":"12345678TH"
     },
-    "salt":10
+    "salt":10,
+    "vonage":{
+        "apiKey": "6234412a",
+        "apiSecret": "iVHIY2nqMbEW47G8"
+    }
 }

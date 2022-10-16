@@ -13,7 +13,7 @@ router.get("/register",function(req,res){
         res.render("register",{data:{}});
     });
 
- router.post("/register",function(req,res){
+router.post("/register",function(req,res){
         var user = req.body;
 
         var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -40,6 +40,14 @@ router.get("/register",function(req,res){
             }
              res.render("register",{data:err});
             }
+            // Kiểm tra mã xác nhận
+            // else if(user.code_save != user.code){
+            //     var code_err = {
+            //         code_message: "Confirmation code is incorrect",
+            //         code_error: true
+            //     }
+            //     res.render("register",{data:code_err});
+            // }
             else{
                 var adduser = {
                     email: user.email,
@@ -74,5 +82,6 @@ router.get("/register",function(req,res){
             res.render("register",{data:erro});
         });
     });
+
 
 module.exports = router;

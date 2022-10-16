@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/thang1610200/Web-Chat#readme",
   "dependencies": {
+    "@vonage/server-sdk": "^2.11.2",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
     "config": "^3.3.8",
