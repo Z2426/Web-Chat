@@ -37,6 +37,22 @@ function searchEmail(email){
     return false;
 }
 
+function checklogin(user){
+    if(user){
+        var defer = q.defer();
+
+        var query = conn.query("SELECT * FROM user WHERE ?",user,function(err,result){
+            if(err){
+                defer.reject(err);
+            }
+            else{
+                defer.resolve(result);
+            }
+        });
+        return defer.promise;
+    }   
+    return false;
+}
 module.exports = {
     addUser:addUser,
     searchEmail: searchEmail

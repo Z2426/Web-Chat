@@ -9,6 +9,14 @@ router.get("/login",function(req,res){
     res.render("login");
 });
 
+router.post("/login",function(req,res){
+    var user_login = req.body;
+
+    var user = user_model.searchEmail(user_login.email);
+
+
+});
+
 router.get("/register",function(req,res){
         res.render("register",{data:{}});
     });
@@ -19,13 +27,13 @@ router.post("/register",function(req,res){
         var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
         // Kiểm tra email không đúng cấu trúc or mật khẩu trống
-        if(!filter.test(user.email) || user.password.trim().length == 0){
-            var err = {
-                message: "Wrong email or password",
-                error: true
-            }
-            res.render("register",{data:err});
-        }
+        // if(!filter.test(user.email) || user.password.trim().length == 0){
+        //     var err = {
+        //         message: "Wrong email or password",
+        //         error: true
+        //     }
+        //     res.render("register",{data:err});
+        // }
 
         var passs = hashpass.hashPass(user.password);
 
@@ -48,6 +56,13 @@ router.post("/register",function(req,res){
             //     }
             //     res.render("register",{data:code_err});
             // }
+            else if(!filter.test(user.email) || user.password.trim().length == 0){
+                var err = {
+                    message: "Wrong email or password",
+                    error: true
+                }
+                res.render("register",{data:err});
+            }
             else{
                 var adduser = {
                     email: user.email,
