@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="" />
     <meta name="keywords" content="" />
-	<title>Pitnik Social Network Toolkit</title>
-    <link rel="icon" href="/static/images/fav.png" type="image/png" sizes="16x16"> 
-    
-    <link rel="stylesheet" type ="text/css" href="/static/css/main.min.css">
-	<link rel="stylesheet" type ="text/css" href="/static/css/weather-icon.css">
-	<link rel="stylesheet" type ="text/css" href="/static/css/weather-icons.min.css">
-    <link rel="stylesheet" type ="text/css" href="/static/css/style.css">
-    <link rel="stylesheet" type ="text/css" href="/static/css/color.css">
-    <link rel="stylesheet" type ="text/css" href="/static/css/responsive.css">
+    <title>Pitnik Social Network Toolkit</title>
+    <link rel="icon" href="/static/images/fav.png" type="image/png" sizes="16x16">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/main.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/weather-icon.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/weather-icons.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/color.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/responsive.css">
     <%- include('link/nav')%>
 
 </head>
+
 <body>
-	<div class="www-layout">
+    <div class="www-layout">
         <section>
-        	<div class="gap no-gap signin whitish medium-opacity">
+            <div class="gap no-gap signin whitish medium-opacity">
                 <div class="bg-image" style="background-image:url(/static/images/resources/theme-bg.jpg)"></div>
                 <div class="container">
-                	<div class="row">
+                    <div class="row">
                         <div class="col-lg-8">
                             <div class="big-ad">
                                 <figure><img src="/static/images/logo2.png" alt=""></figure>
                                 <h1>Welcome to the Pitnik</h1>
                                 <p>
-                                     Pitnik is a social network template that can be used to connect people. use this template for multipurpose social activities like job, dating, posting, bloging and much more. Now join & Make Cool Friends around the world !!!                             
+                                    Pitnik is a social network template that can be used to connect people. use this template for multipurpose social activities like job, dating, posting, bloging and much more. Now join & Make Cool Friends around the world !!!
                                 </p>
-                                
+
                                 <div class="fun-fact">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 col-sm-4">
@@ -62,9 +64,15 @@
                                     <div class="app-download">
                                         <span>Download Mobile App and Scan QR Code to login</span>
                                         <ul class="colla-apps">
-                                            <li><a title="" href="https://play.google.com/store?hl=en"><img src="/static/images/android.png" alt="">android</a></li>
-                                            <li><a title="" href="https://www.apple.com/lae/ios/app-store/"><img src="/static/images/apple.png" alt="">iPhone</a></li>
-                                            <li><a title="" href="https://www.microsoft.com/store/apps"><img src="/static/images/windows.png" alt="">Windows</a></li>
+                                            <li>
+                                                <a title="" href="https://play.google.com/store?hl=en"><img src="/static/images/android.png" alt="">android</a>
+                                            </li>
+                                            <li>
+                                                <a title="" href="https://www.apple.com/lae/ios/app-store/"><img src="/static/images/apple.png" alt="">iPhone</a>
+                                            </li>
+                                            <li>
+                                                <a title="" href="https://www.microsoft.com/store/apps"><img src="/static/images/windows.png" alt="">Windows</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -76,29 +84,30 @@
                                     <i class="fa fa-key"></i>login
                                     <span>sign in now and meet the awesome Friends around the world.</span>
                                 </div>
-                                <form class="we-form" method="post">
-                                    <input type="text" placeholder="Email">
-                                    <input type="password" placeholder="Password">
+                                <form class="we-form" method="post" active="/login">
+                                    <input type="text" placeholder="Email" name="email">
+                                    <input type="password" placeholder="Password" name="password">
                                     <input type="checkbox"><label>remember me</label>
                                     <button type="submit" data-ripple="">sign in</button>
                                     <a class="forgot underline" href="#" title="">forgot password?</a>
                                 </form>
                                 <a class="with-smedia facebook" href="#" title="" data-ripple=""><i class="fa fa-facebook"></i></a>
                                 <a class="with-smedia twitter" href="#" title="" data-ripple=""><i class="fa fa-twitter"></i></a>
-								<a class="with-smedia instagram" href="#" title="" data-ripple=""><i class="fa fa-instagram"></i></a>
-								<a class="with-smedia google" href="#" title="" data-ripple=""><i class="fa fa-google-plus"></i></a>
+                                <a class="with-smedia instagram" href="#" title="" data-ripple=""><i class="fa fa-instagram"></i></a>
+                                <a class="with-smedia google" href="#" title="" data-ripple=""><i class="fa fa-google-plus"></i></a>
                                 <span>don't have an account? <a class="we-account underline" href="/register" title="">register now</a></span>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
         </section>
-         
+
     </div>
-    
-    	<script type ="text/JavaScript" src="/static/js/main.min.js"></script>
-		<script type ="text/JavaScript" src="/static/js/script.js"></script>
-</body>	
+
+    <script type="text/JavaScript" src="/static/js/main.min.js"></script>
+    <script type="text/JavaScript" src="/static/js/script.js"></script>
+</body>
+
 </html>

@@ -4,8 +4,7 @@ var bodyParser = require("body-parser");
 var controller = require(__dirname + "/apps/controllers");
 
 var app = express(); // express
-
-app.use(bodyParser.json());
+app.use(bodyParser.json());// dong 7-9 lam gi vay
 app.use(bodyParser.urlencoded({extended: true}));
 
 // tro? ve` folder chua file ejs

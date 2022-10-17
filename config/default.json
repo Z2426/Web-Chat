@@ -1,14 +1,14 @@
 {
-    "server" :{
-        "host":"",
-        "port":"3000"
+    "server": {
+        "host": "",
+        "port": "3000"
     },
-    "mysql":{
-        "host":"localhost",
-        "port":"3306",
-        "database":"webchat",
-        "user":"T-H",
-        "password":"12345678TH"
+    "mysql": {
+        "host": "localhost",
+        "port": "3306",
+        "database": "webchat",
+        "user": "root",
+        "password": "123456"
     },
-    "salt":10
+    "salt": 10
 }
