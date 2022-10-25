@@ -14,5 +14,6 @@
     "vonage":{
         "apiKey": "6234412a",
         "apiSecret": "iVHIY2nqMbEW47G8"
-    }
+    },
+    "secret_key":"secretkey"
 }

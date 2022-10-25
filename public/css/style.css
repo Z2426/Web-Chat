@@ -18518,4 +18518,10 @@ table.adition tbody tr td {
 .modal{
 	z-index: 999999 !important;
 }
-
+legend {
+    color: white;
+    padding: 5px 10px;
+    border-radius: 0;
+    border: 0;
+    font-size: 9px;
+  }

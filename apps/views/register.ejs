@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="/static/css/color.css">
     <link rel="stylesheet" href="/static/css/responsive.css">
     <%- include('link/nav')%>
-
 </head>
 <body>
 	<div class="www-layout">
@@ -57,22 +56,26 @@
                                     <%}%>
 
                                     <% if (data.error) {%>
-                                        <div id="registeralertt" class="alert alert-danger">
+                                        <div id="registeralert" class="alert alert-danger">
                                         <%= data.message%>
                                         </div>
                                     <%}%>
-
-                                    <% if (data.code_error) {%>
-                                        <div id="registeralertt" class="alert alert-danger">
-                                        <%= data.code_message%>
-                                        </div>
-                                    <%}%>
-                                    <input type="hidden" id = "code_save" name = "code_save">
+                                    <input type="text" placeholder="Firstname" name = "fname">
+                                    <input type="text" placeholder="Lastname" name = "lname">
                                     <input type="text" placeholder="Email" name = "email">
                                     <input type="password" placeholder="Password" name = "password">
-                                    <input type="text" placeholder="+8434-567-987" name = "mobile" id = "mobile">
-                                    <input type="text" placeholder="Verification Code" name = "code">
-                                    <input type="checkbox"><label>Send code to Mobile</label>
+                                    <input type="text" placeholder="+8434-567-987" name = "mobile_n" id = "mobile">
+                                    <input type="date" name="bdate" placeholder="dd-mm-yyyy" value="" min="1997-01-01" max="2030-12-31">
+                                    <br>
+                                    <table>
+                                        <tr>
+                                            <td>Gender: </td>
+                                            <td><input type="radio" name="gender" id = "male" value="male"></td>
+                                            <td for = "male">Male</td>
+                                           <td><input type="radio" name="gender" id = "female" value = "female"></td>
+                                            <td for = "female">Female</td>
+                                        </tr>
+                                        </table>
                                     <button type="submit" data-ripple="">Register</button>
                                     <a class="forgot underline" href="#" title="">forgot password?</a>
                                 </form>
@@ -87,13 +90,12 @@
                     </div>
                 </div>
             </div>
-        </section>
-         
+        </section>        
     </div>
-        <script type = "text/javascript" src="../apps/helpers/sms.js"></script>
-        <script type = "text/javascript" src="../apps/helpers/test.js"></script>
     	<script src="/static/js/main.min.js"></script>
 		<script src="/static/js/script.js"></script>
+        <script type="text/javascript">
+        </script>
 </body>	
 
 </html>

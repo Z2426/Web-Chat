@@ -2,19 +2,50 @@ var express = require("express");
 var hashpass = require("../helpers/hashpass");
 var user_model = require("../models/user");
 var router = express.Router();
+var sms = require("../helpers/sms");
 
-//router.use("/user",__dirname + "controllers/user.js");
+var text_OTP = "";
+var saveee = {};
+router.use("/home",require(__dirname + "/user.js"));
 
 router.get("/login",function(req,res){
-    res.render("login");
+    res.render("login",{data:{}});
 });
 
 router.post("/login",function(req,res){
-    var user_login = req.body;
+    var user = req.body;
 
-    var user = user_model.searchEmail(user_login.email);
+    var user_login = user_model.searchEmail(user.email);
+    if(user.email.trim().length == 0 || user.password.trim().length == 0){
+        let err = {
+            message : "Email or password is blank",
+            error: true
+        };
+        res.render("login",{data:err});
+    }
+    else{
+    user_login.then(function(result){
+        var save = result[0];
+        if(save && hashpass.compare_pass(user.password,save.pass)){
+            req.session.username = user;
+            res.redirect("/home");
+        }
+        else{
+            let err = {
+                message : "Email does not exist",
+                error: true
+            };
 
-
+            res.render("login",{data:err});
+        }
+    }).catch(function(err){
+        let error = {
+            message : "Error",
+            error: true
+        };
+        res.render("login",{data:error});
+    });
+    }
 });
 
 router.get("/register",function(req,res){
@@ -24,41 +55,40 @@ router.get("/register",function(req,res){
 router.post("/register",function(req,res){
         var user = req.body;
 
-        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/; // email
+        var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g; // sđt
 
-        // Kiểm tra email không đúng cấu trúc or mật khẩu trống
-        // if(!filter.test(user.email) || user.password.trim().length == 0){
-        //     var err = {
-        //         message: "Wrong email or password",
-        //         error: true
-        //     }
-        //     res.render("register",{data:err});
-        // }
+        var passs = hashpass.hashPass(user.password); // Mã hóa mật khẩu 
 
-        var passs = hashpass.hashPass(user.password);
-
-        var semail = user_model.searchEmail(user.email);
-
-        semail.then(function(data){
-            var save = data[0];
-            if(save){
+        var semail = user_model.searchEmail(user.email);// tìm email đã có trong danh sách chưa!!
+        if(user.password.trim().length == 0 || user.mobile_n.trim().length == 0 || user.mobile_n.trim().length == 0 ||
+            user.fname.trim().length == 0 || user.lname.trim().length == 0 || user.bdate.trim().length == 0 || user.gender == undefined){
             var err = {
-                message: "Email already exists",
+                message: "Empty fields",
                 error: true
             }
-             res.render("register",{data:err});
-            }
-            // Kiểm tra mã xác nhận
-            // else if(user.code_save != user.code){
-            //     var code_err = {
-            //         code_message: "Confirmation code is incorrect",
-            //         code_error: true
-            //     }
-            //     res.render("register",{data:code_err});
-            // }
-            else if(!filter.test(user.email) || user.password.trim().length == 0){
+            res.render("register",{data:err});
+        }
+        else{
+        semail.then(function(data){
+            var save = data[0];
+            if(!filter.test(user.email)){
                 var err = {
-                    message: "Wrong email or password",
+                    message: "Invalid email",
+                    error: true
+                }
+                res.render("register",{data:err});
+            }
+            else if(save){
+                var err = {
+                    message: "Email already exists",
+                    error: true
+                }
+                 res.render("register",{data:err});
+            }
+            else if(!vnf_regex.test(user.mobile_n)){
+                var err = {
+                    message: "Invalid phone number",
                     error: true
                 }
                 res.render("register",{data:err});
@@ -67,36 +97,54 @@ router.post("/register",function(req,res){
                 var adduser = {
                     email: user.email,
                     pass: passs,
+                    first_name:user.fname,
+                    last_name: user.lname,
+                    birthday: user.bdate,
                     create_time: new Date(),
-                    update_time: new Date()
+                    update_time: new Date(),
+                    sdt: user.mobile_n,
+                    gender: user.gender
                 }
-        
-                var result = user_model.addUser(adduser);
-    
-             // Thông báo kết quả khi thêm vào CSDL success hay ko
-            result.then(function(data){
-                var err = {
-                    message: "Successful account registration",
-                    error: true
-                }
-                res.render("register",{data:err});
-            }).catch(function(err){
-                var erro = {
-                    message: "Error",
-                    error: true
-                }
-                res.render("register",{data:erro});
-            });
-    }
+                saveee = adduser;// save thông tin cần insert
+               res.redirect("/code");
+            }
         }).catch(function(err){
             var erro = {
                 message: "Error",
                 error: true
             }
-            console.log(err);
+            //console.log(err);
             res.render("register",{data:erro});
         });
+    }
     });
 
+router.get("/code",function(req,res){
+    var from = "UTE";
+    var to = "84" + saveee.sdt.slice(1);
+    var text = sms.getRandomInt().toString();
+    text_OTP = text;
+    console.log(text_OTP);
+    //sms.sms(from,to,text);
+    res.render("code",{data:{}});
+});
 
+router.post("/code",function(req,res){
+    var code_verify = req.body;
+
+    if(text_OTP == code_verify.code){
+            var result = user_model.addUser(saveee);
+           //  Thông báo kết quả khi thêm vào CSDL success hay ko
+            result.then(function(data){
+                res.redirect("/login");
+            }).catch(function(err){
+                var erro = {
+                    message: "Error",
+                    error: true
+                }
+                console.log(err);
+                res.render("code",{data:erro});
+            });
+    }
+});
 module.exports = router;

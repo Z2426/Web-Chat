@@ -77,8 +77,18 @@
                                     <span>sign in now and meet the awesome Friends around the world.</span>
                                 </div>
                                 <form class="we-form" method="post" action = "/login">
+                                    <% if (!data.error) {%>
+                                        <div id="registeralert" style="display: none;" class="alert alert-danger"></div>
+                                        <%}%>
+    
+                                        <% if (data.error) {%>
+                                            <div id="registeralertt" class="alert alert-danger">
+                                            <%= data.message%>
+                                            </div>
+                                        <%}%>
+
                                     <input type="text" placeholder="Email" name = "email">
-                                    <input type="password" placeholder="Password" name = password>
+                                    <input type="password" placeholder="Password" name = "password">
                                     <input type="checkbox"><label>remember me</label>
                                     <button type="submit" data-ripple="">sign in</button>
                                     <a class="forgot underline" href="#" title="">forgot password?</a>
