@@ -780,6 +780,8 @@ header.sticky {
     transform: scale(0.8);
     vertical-align: inherit;
 	border: 2px solid rgba(255,255,255,.8);
+    width: 60px;
+    height: 60px;
 }
 
 .form-search {
@@ -1517,6 +1519,8 @@ header.sticky {
     display: inline-block;
     margin-bottom: 0;
     vertical-align: top;
+    width: 40px;
+    height: 40px;
 }
 
 .newpst-input {
@@ -7035,6 +7039,7 @@ a.addnewforum {
     max-width: 155px;
     min-width: 155px;
     width: 155px;
+    height: 155px;
     display: inline-block;
 }
 
@@ -7494,6 +7499,8 @@ input[type="checkbox"]:checked + label{color: #000;}
 .change-photo > figure img {
     border: 3px solid #ccc;
     border-radius: 100%;
+    width: 60px;
+    height: 60px;
 }
 .edit-img {
     display: inline-block;
@@ -8717,7 +8724,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 }
 .gen-metabox {
     display: inline-block;
-    margin-bottom: 25px;
+    margin-bottom: 55px;
     width: 100%;
 }
 .gen-metabox > span {
@@ -8725,7 +8732,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
     display: inline-block;
     font-size: 14px;
     font-weight: 500;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     width: 100%;
 }
 .gen-metabox > p {

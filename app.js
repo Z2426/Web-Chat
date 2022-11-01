@@ -7,7 +7,7 @@ var session = require("express-session");
 var app = express(); // express
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true,limit:'50mb',parameterLimit:50000}));
 
 // tro? ve` folder chua file ejs
 app.set("views",__dirname + "/apps/views");

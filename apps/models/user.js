@@ -76,8 +76,27 @@ function updateuser(data){
     if(data){
         var defer = q.defer();
 
-        var query = conn.query("UPDATE user SET first_name = ?, last_name = ?, gender = ?, about = ?, location = ?, country = ? WHERE id = ?",
-        [data.first_name,data.last_name,data.gender,data.about,data.location,data.country,data.id],function(err,result){
+        var query = conn.query("UPDATE user SET gender = ?, about = ?, location = ?, country = ?, display_name = ?, update_time = ?, image = ?, occupation = ? WHERE id = ?",
+        [data.gender,data.about,data.location,data.country,data.display_name,data.update_time,data.avatar,data.occupation,data.id],function(err,result){
+            if(err){
+                defer.reject(err);
+            }
+            else{
+                defer.resolve(result);
+            }
+        });
+        return defer.promise;
+    }
+    return false;
+}
+
+// update infor No images
+function updateusernoimage(data){
+    if(data){
+        var defer = q.defer();
+
+        var query = conn.query("UPDATE user SET gender = ?, about = ?, location = ?, country = ?, display_name = ?, update_time = ?, occupation = ? WHERE id = ?",
+        [data.gender,data.about,data.location,data.country,data.display_name,data.update_time,data.occupation,data.id],function(err,result){
             if(err){
                 defer.reject(err);
             }
@@ -94,5 +113,6 @@ module.exports = {
     addUser:addUser,
     searchEmail: searchEmail,
     searchid: searchid,
-    updateuser: updateuser
+    updateuser: updateuser,
+    updateusernoimage: updateusernoimage
 };

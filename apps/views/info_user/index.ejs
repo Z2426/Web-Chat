@@ -766,8 +766,8 @@
 				</li>
 			</ul>
 			<div class="user-img">
-				<h5><%= data.first_name%><%= " "%><%= data.last_name%></h5>
-				<img src="/static/images/resources/avatar-male.jpg" alt="">
+				<h5><%= data.display_name%></h5>
+				<img src="/static/images/user/<%= data.image%>" alt="">
 				<span class="status f-online"></span>
 				<div class="user-setting">
 					<span class="seting-title">Chat setting <a href="#" title="">see all</a></span>
@@ -778,7 +778,7 @@
 					</ul>
 					<span class="seting-title">User setting <a href="#" title="">see all</a></span>
 					<ul class="log-out">
-						<li><a href="about.html" title=""><i class="ti-user"></i> view profile</a></li>
+						<li><a href="/home/view/<%= data.id%>" title=""><i class="ti-user"></i> view profile</a></li>
 						<li><a href="/home/edit/<%= data.id%>" title=""><i class="ti-pencil-alt"></i>edit profile</a></li>
 						<li><a href="#" title=""><i class="ti-target"></i>activity log</a></li>
 						<li><a href="setting.html" title=""><i class="ti-settings"></i>account setting</a></li>
@@ -1488,7 +1488,7 @@
 									<span class="create-post">Create post</span>
 									<div class="new-postbox">
 										<figure>
-											<img src="/static/images/resources/avatar-male.jpg" alt="">
+											<img src="/static/images/user/<%= data.image%>" alt="">
 										</figure>
 										<div class="newpst-input">
 											<form method="post">

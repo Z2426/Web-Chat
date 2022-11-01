@@ -1,7 +1,7 @@
 var express = require("express");
 var user_model = require("../models/user.js");
 var handle = require("../helpers/handleString.js");
-
+var fs = require("fs");
 var router = express.Router();
 
 router.get("/",function(req,res){
@@ -28,24 +28,58 @@ router.get("/edit/:id",function(req,res){
 
 router.put("/edit",function(req,res){
     var infor = req.body;
-    var string = infor.name;
+    if(infor.image_name != ""){
+    var path = './public/images/user/'+ req.body.id + req.body.image_name;
+    var image    = req.body.image_data;
+    var data     = image.split(',')[1];
+    fs.writeFileSync(path,data,{encoding:'base64'});    
     var params = {
-        first_name: string.slice(0,handle.CountSpacefirst(string)),
-        last_name: string.slice(handle.CountSpacefirst(string) + 1),
         gender: infor.gender,
         about: infor.about,
         location: infor.location,
         country: infor.country,
-        id: infor.id
+        display_name: infor.name,
+        update_time: new Date(),
+        id: infor.id,
+        occupation: infor.occupation,
+        avatar: infor.id + infor.image_name
     }
-
     var infor_update = user_model.updateuser(params);
-
     infor_update.then(function(result){
         res.json({status_code: 200});
     }).catch(function(err){
         res.json({status_code: 500});
     });
+    }
+    else{
+        var params = {
+            gender: infor.gender,
+            about: infor.about,
+            location: infor.location,
+            country: infor.country,
+            display_name: infor.name,
+            update_time: new Date(),
+            id: infor.id,
+            occupation: infor.occupation,
+        }
+        var infor_update = user_model.updateusernoimage(params);
+        infor_update.then(function(result){
+            res.json({status_code: 200});
+        }).catch(function(err){
+            res.json({status_code: 500});
+        }); 
+    }
 
+});
+
+router.get("/view/:id",function(req,res){
+    var id = req.params.id;
+    var user = user_model.searchid(id);
+    user.then(function(result){
+        var data_user = result[0];
+        res.render("info_user/view",{data:data_user});
+    }).catch(function(err){
+        res.json({Error:err});
+    });
 });
 module.exports = router;

@@ -103,7 +103,8 @@ router.post("/register",function(req,res){
                     create_time: new Date(),
                     update_time: new Date(),
                     sdt: user.mobile_n,
-                    gender: user.gender
+                    gender: user.gender,
+                    display_name: user.fname + " " + user.lname
                 }
                 saveee = adduser;// save thông tin cần insert
                res.redirect("/code");
