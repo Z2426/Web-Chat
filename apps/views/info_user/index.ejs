@@ -1266,9 +1266,9 @@
 											</div>
 											<div class="weather-infos">
 												<span class="weather-tem">25</span>
-												<h3>Cloudy Skyes<i>Sicklervilte, New Jersey</i></h3>
+												<h3>Cloudy Skyes<i><%= data.location%></i></h3>
 												<div class="weather-date skyblue-bg">
-													<span>MAY<strong>21</strong></span>
+													<span><%= new Date().toDateString().slice(0,3)%><strong><%= new Date().getDate()%></strong></span>
 												</div>
 											</div>
 											<div class="monthly-weather">

@@ -2,14 +2,31 @@ var express = require("express");
 var user_model = require("../models/user.js");
 var handle = require("../helpers/handleString.js");
 var fs = require("fs");
+const e = require("express");
 var router = express.Router();
 
 router.get("/",function(req,res){
-    var info = req.session.username;
+    var info = req.session.username;// lưu thông tin của user khi đăng nhập
     var user = user_model.searchEmail(info.email);
     user.then(function(result){
         var data_user = result[0];
-        res.render("info_user/index",{data:data_user});
+        var searchidGeneral = user_model.searchidGeneral(data_user.id);
+        searchidGeneral.then(function(test){
+            var params = test[0];
+            if(params == undefined){
+                var general = user_model.addGeneral(data_user.id);   
+                general.then(function(answer){
+                    res.render("info_user/index",{data:data_user});
+                }).catch(function(err){
+                    res.json({Error:err});
+                });
+            }
+            else{
+                res.render("info_user/index",{data:data_user});
+        }
+        }).catch(function(err){
+            res.json({Error:err});
+        });
     }).catch(function(err){
         res.json({Error:err});
     });
@@ -28,6 +45,23 @@ router.get("/edit/:id",function(req,res){
 
 router.put("/edit",function(req,res){
     var infor = req.body;
+    if(infor.notice == "favorite"){ // Xử lý phần general infor updated
+        var data = {
+            education: infor.education,
+            hobbies: infor.hobbies,
+            interest: infor.interest,
+            work: infor.work,
+            id_user: infor.id
+        }
+        var general = user_model.updateGeneral(data);
+        general.then(function(result){
+            res.json({status_code: 200});
+        }).catch(function(err){
+            res.json({status_code: 500});
+        });
+    }
+    else{ // Xử lý phần profile updated
+    //update tất cả các thông tin bao gồm cả ảnh
     if(infor.image_name != ""){
     var path = './public/images/user/'+ req.body.id + req.body.image_name;
     var image    = req.body.image_data;
@@ -51,6 +85,7 @@ router.put("/edit",function(req,res){
         res.json({status_code: 500});
     });
     }
+    //update tất cả các thông tin ko có ảnh
     else{
         var params = {
             gender: infor.gender,
@@ -69,6 +104,7 @@ router.put("/edit",function(req,res){
             res.json({status_code: 500});
         }); 
     }
+}
 
 });
 

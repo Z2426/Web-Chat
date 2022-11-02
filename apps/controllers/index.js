@@ -143,7 +143,6 @@ router.post("/code",function(req,res){
                     message: "Error",
                     error: true
                 }
-                console.log(err);
                 res.render("code",{data:erro});
             });
     }

@@ -37,12 +37,35 @@ function Infor(){
                 image_data: fileData
             };
         }
+        var base_url = location.protocol + "//" + document.domain + ":" + location.port;
+        //console.log($(form).serialize());
+         $.ajax({
+             url: base_url + "/home/edit",
+             type: "PUT",
+             data: params,
+             dataType: "json",
+             success: function(res){
+                 if(res && res.status_code == 200){
+                     location.reload();
+                 }
+             }
+         });
+        });
+
+        $(".General-edit").click(function(e){
+            var data = {
+                id: $(".id_general").val(),
+                hobbies : $('textarea#hobbies').val(),
+                education: $('textarea#education').val(),
+                interest: $('textarea#interest').val(),
+                work: $('textarea#work').val(),
+                notice: $(".notice").val()
+            };
             var base_url = location.protocol + "//" + document.domain + ":" + location.port;
-           //console.log($(form).serialize());
             $.ajax({
                 url: base_url + "/home/edit",
                 type: "PUT",
-                data: params,
+                data: data,
                 dataType: "json",
                 success: function(res){
                     if(res && res.status_code == 200){
